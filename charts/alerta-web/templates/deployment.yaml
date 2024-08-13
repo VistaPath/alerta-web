@@ -26,6 +26,9 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.commandOverwrite }}
+          command: ["sh", "-c", "{{ .Values.commandOverwrite }}"]
+          {{- end }}
           env:
               {{- if .Values.alertaAdminUsers }}
             - name: ADMIN_USERS
