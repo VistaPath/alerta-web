@@ -55,6 +55,12 @@ spec:
             - name: INSTALL_PLUGINS
               value: {{ .Values.alertaInstallPlugins | join "," }}
               {{- end }}
+              {{- if .Values.extraEnvVars }}
+              {{- range $key, $value := .Values.extraEnvVars }}
+            - name: {{ $key | quote}}
+              value: {{ $value | quote}}
+              {{- end }}
+              {{- end }}
           ports:
             - name: http
               containerPort: 8080
